@@ -27,6 +27,7 @@ public class InstruccionesControlador {
         @Override
         public void actionPerformed(ActionEvent e) {
             vistaIns.avanzarPagina();
+            System.out.println("Presiono adelante");
         }
     }
     class BackListener implements ActionListener{
@@ -34,12 +35,14 @@ public class InstruccionesControlador {
         @Override
         public void actionPerformed(ActionEvent e) {
             vistaIns.retrocederPagina();
+            System.out.println("Presiono atras");
         }
     }
     class ExitListener implements ActionListener{
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            vistaIns.volverMenu();
             System.out.println("Salir de inst");
         }
     }

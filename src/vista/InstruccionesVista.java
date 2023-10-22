@@ -7,6 +7,7 @@
 
 package vista;
 
+import controlador.MenuPrincipalControlador;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
@@ -144,6 +145,53 @@ public class InstruccionesVista extends JFrame {
         jpInstru.removeAll();
         jpInstru.revalidate();
         jpInstru.repaint();
+        
+        // metodo 1: Agregar de nuevo todos los botones
+        
+        // BOTONES
+        GridBagConstraints constraints = new GridBagConstraints();
+        
+        // ANTERIOR
+        imgBack = new ImageIcon(getClass().getResource("/imagenes/Anterior.png"));
+        jbBack = new JButton(imgBack);
+        jbBack.setBorderPainted(false);
+        jbBack.setContentAreaFilled(false);
+        jbBack.setFocusPainted(false);
+        
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.anchor = GridBagConstraints.LINE_START;
+        constraints.insets = new Insets(10,10,10,400);
+        jpInstru.add(jbBack, constraints);
+        
+        // SIGUIENTE
+        imgNext = new ImageIcon(getClass().getResource("/imagenes/Siguiente.png"));
+        jbNext = new JButton(imgNext);
+        jbNext.setBorderPainted(false);
+        jbNext.setContentAreaFilled(false);
+        jbNext.setFocusPainted(false);
+        
+        constraints.gridx = 2;
+        constraints.gridy = 1;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.anchor = GridBagConstraints.LINE_END;
+        constraints.insets = new Insets(10,400,10,10);
+        jpInstru.add(jbNext, constraints);
+        
+        // SALIR
+        imgExit = new ImageIcon(getClass().getResource("/imagenes/X.png"));
+        jbExit = new JButton(imgExit);
+        jbExit.setBorderPainted(false);
+        jbExit.setContentAreaFilled(false);
+        jbExit.setFocusPainted(false);
+        
+        constraints.gridx = 2;
+        constraints.gridy = 0;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.anchor = GridBagConstraints.FIRST_LINE_END;
+        //constraints.insets = new Insets(10,10,10,10);
+        jpInstru.add(jbExit, constraints);
     }
     
     public void avanzarPagina() {
@@ -158,6 +206,12 @@ public class InstruccionesVista extends JFrame {
             paginaActual--;
             setImgInstru(imgInstrucciones.get(paginaActual));
         }
+    }
+    
+    public void volverMenu() {
+        dispose();
+        MenuPrincipalVista mpVista = new MenuPrincipalVista();
+        MenuPrincipalControlador mpControlador = new MenuPrincipalControlador(mpVista);
     }
 }
 

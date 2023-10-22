@@ -18,7 +18,7 @@ public class MenuPrincipalControlador {
         this.vista = vista;
 
         vista.addBtnComoJugarListener(new InstruccionesListener());
-
+        vista.addBtnParaQueListener(new InfoListener());
     }
 
     class JugarListener implements ActionListener {
@@ -36,6 +36,12 @@ public class MenuPrincipalControlador {
         public void actionPerformed(ActionEvent e) {
             vista.abrirInstrucciones();
         }
+    }
+    class InfoListener implements ActionListener {
 
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            vista.abrirParaQue();
+        }
     }
 }

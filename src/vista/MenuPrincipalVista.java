@@ -6,6 +6,7 @@
  */
 package vista;
 
+import controlador.InfoControlador;
 import controlador.InstruccionesControlador;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -113,5 +114,11 @@ public class MenuPrincipalVista extends JFrame {
         dispose();
         InstruccionesVista instruccionesVista = new InstruccionesVista();
         InstruccionesControlador instruccionesCntrl = new InstruccionesControlador(instruccionesVista);
+    }
+    
+    public void abrirParaQue() {
+        dispose();
+        InfoVista infoVista = new InfoVista();
+        InfoControlador infoCntrl = new InfoControlador(infoVista);
     }
 }
