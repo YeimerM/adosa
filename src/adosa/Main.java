@@ -7,15 +7,17 @@
 
 package adosa;
 
+import controlador.MenuPrincipalControlador;
 import java.awt.EventQueue;
-import vista.VentanaMenu;
+import vista.MenuPrincipalVista;
 
 public class Main {
     public static void main(String[] args){
         // Iniciar modelo, view y controller
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaMenu().setVisible(true);
+                MenuPrincipalVista vistaMenu = new MenuPrincipalVista();
+                MenuPrincipalControlador ctrladorMenu = new MenuPrincipalControlador(vistaMenu);
             }
         });
     }
