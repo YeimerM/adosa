@@ -1,0 +1,20 @@
+---------------- LOGS Adosa 2 ----------------
+24/10 -> 03:40
+
+Aparece y desaparece el boton si está en la primera o última página. hay que terminar de configurar commo hacer para que cambie el bg al prsionar en el boton para avanzar o retroceder
+
+----------------------------------------------
+
+24/10 -> 15:01
+
+Cambia el bg de instrucciones cuando presionamos los botones avanzar o retroceder, ya configuré también el boton salir para que vuelva al menu (tuve que agregar código para que al volver al panel de instrucciones empezara desde instru1 porque al regresar al panel mostraba donde se el instru que tenia al salir)
+
+Falta configurar el panel de Para Qué Sirve y luego de eso empezar con el panel del juego
+
+----------------------------------------------
+
+24/10 -> 11:36
+
+Se configuró el panel Para Qué Sirve, se añadió su boton para regresar al menu y se empezó a configurar el panel de Jugar
+
+----------------------------------------------
