@@ -13,8 +13,11 @@ Falta configurar el panel de Para Qué Sirve y luego de eso empezar con el panel
 
 ----------------------------------------------
 
-24/10 -> 11:36
+24/10 -> 23:36
 
-Se configuró el panel Para Qué Sirve, se añadió su boton para regresar al menu y se empezó a configurar el panel de Jugar
+configura el panel 'Para Qué Sirve', añade su botón para regresar al menú y se empieza a configurar el panel de 'Jugar'
 
 ----------------------------------------------
+25/10 -> 22:50
+
+Arregla el código en la ventana principal para que las clases de los otros paneles se inicialicen en la clase controlador y no en la clase de la vista

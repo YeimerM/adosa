@@ -6,8 +6,6 @@
  */
 package vista;
 
-import controlador.InfoController;
-import controlador.InstruController;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Dimension;
@@ -36,18 +34,6 @@ public class MainView extends JFrame {
     private JButton btnJugar;
     private JButton btnInstru;
     private JButton btnInfo;
-    
-    // Paneles
-    private InstruPanel instruPanel;
-    private InstruController instruCtrl;
-    private JPanel insPanel;
-    
-    private JuegoPanel juegoPanel;
-    private JPanel juegPanel;
-    
-    private InfoPanel infoPanel;
-    private InfoController infoCtrl;
-    private JPanel infPanel;
 
     public MainView() {
         initComponentes();
@@ -131,45 +117,15 @@ public class MainView extends JFrame {
         layeredPane.add(btnInfo, JLayeredPane.PALETTE_LAYER);
         menuPanel.add(layeredPane, BorderLayout.CENTER);
         
-        // crear y agrgar al cardlayout los paneles
-        
-        // Panel Instrucciones
-        instruPanel = new InstruPanel();
-        instruCtrl = new InstruController(instruPanel);
-        insPanel = instruPanel.getPanel();
-        
-        
-        // Panel Juego
-        juegoPanel = new JuegoPanel();
-        juegPanel = juegoPanel.getPanel();
-        
-        
-        // Panel Info
-        infoPanel = new InfoPanel();
-        infoCtrl = new InfoController(infoPanel);
-        infPanel = infoPanel.getPanel();
-        
-        
         jpContenido.add(menuPanel, "menu");
-        jpContenido.add(juegPanel, "juego");
-        jpContenido.add(insPanel, "instrucciones");
-        jpContenido.add(infPanel, "info");
         cdLayout.show(jpContenido, "menu");
+    }
+    
+    public JPanel getPanelContenido(){
+        return jpContenido;
     }
     public CardLayout getCdLayout(){
         return cdLayout;
-    }
-    
-    public void mostrarPanelInstrucciones(){
-        cdLayout.show(jpContenido, "instrucciones");
-    }
-    
-    public void mostrarPanelJugar() {
-        cdLayout.show(jpContenido, "juego");
-    }
-    
-    public void mostrarPanelInfo(){
-        cdLayout.show(jpContenido,"info");
     }
 
     //Agregar Listeners para los botones

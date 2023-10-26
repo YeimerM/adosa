@@ -9,6 +9,10 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JPanel;
+import vista.InfoPanel;
+import vista.InstruPanel;
+import vista.JuegoPanel;
 import vista.MainView;
 
 public class MainController {
@@ -27,7 +31,8 @@ public class MainController {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Jugar");
-            vista.mostrarPanelJugar();
+            vista.getPanelContenido().add(getPanelJug(),"jugar");
+            vista.getCdLayout().show(vista.getPanelContenido(), "jugar");
         }
     }
 
@@ -36,7 +41,8 @@ public class MainController {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Como Jugar");
-            vista.mostrarPanelInstrucciones();
+            vista.getPanelContenido().add(getPanelIns(),"instrucciones");
+            vista.getCdLayout().show(vista.getPanelContenido(), "instrucciones");
         }
     }
     class InfoListener implements ActionListener {
@@ -44,8 +50,29 @@ public class MainController {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("Para Que Sirve");
-            vista.mostrarPanelInfo();
+            vista.getPanelContenido().add(getPanelInf(),"info");
+            vista.getCdLayout().show(vista.getPanelContenido(), "info");
         }
     }
-
+        
+    public JPanel getPanelIns(){
+        InstruPanel instruPanel = new InstruPanel();
+        InstruController instruCtrl = new InstruController(instruPanel);
+        JPanel panelView = instruPanel.getPanel();
+        return panelView;
+    }
+    
+    public JPanel getPanelJug(){
+        JuegoPanel juegoPanel = new JuegoPanel();
+        JuegoController juegoCtrl = new JuegoController(juegoPanel);
+        JPanel panelView = juegoPanel.getPanel();
+        return panelView;
+    }
+    
+    public JPanel getPanelInf(){
+        InfoPanel infoPanel = new InfoPanel();
+        InfoController infoCtrl = new InfoController(infoPanel);
+        JPanel panelView = infoPanel.getPanel();
+        return panelView;
+    }
 }
