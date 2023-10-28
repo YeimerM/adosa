@@ -9,6 +9,8 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import vista.InfoPanel;
 
 public class InfoController {
@@ -18,6 +20,7 @@ public class InfoController {
         this.vista = vista;
         
         vista.addExitButtonListener(new ExitListener());
+        vista.addExitButtonMouseListener(new ExitMouseListener());
         
     }
     
@@ -29,5 +32,12 @@ public class InfoController {
             vista.volverManu();
         }
     }
-
+    
+    class ExitMouseListener extends MouseAdapter {
+        @Override
+        public void mousePressed(MouseEvent e){
+            System.out.println(e);
+            vista.setBotonExit("/imagenes/XOn.png");
+        }
+    }
 }

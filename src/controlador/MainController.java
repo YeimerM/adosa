@@ -9,6 +9,8 @@ package controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 import vista.InfoPanel;
 import vista.InstruPanel;
@@ -24,8 +26,14 @@ public class MainController {
         vista.addJugarButtonListener(new JugarListener());
         vista.addInstruButtonListener(new InstruccionesListener());
         vista.addInfoButtonListener(new InfoListener());
+        
+        vista.addJugarButtonMouseListener(new JugarMouseListener());
+        vista.addInstruButtonMouseListener(new InstruccionesMouseListener());
+        vista.addInfoButtonMouseListener(new InfoMouseListener());
     }
     
+    
+    // Action Listener
     class JugarListener implements ActionListener {
 
         @Override
@@ -35,7 +43,6 @@ public class MainController {
             vista.getCdLayout().show(vista.getPanelContenido(), "jugar");
         }
     }
-
     class InstruccionesListener implements ActionListener {
 
         @Override
@@ -52,6 +59,44 @@ public class MainController {
             System.out.println("Para Que Sirve");
             vista.getPanelContenido().add(getPanelInf(),"info");
             vista.getCdLayout().show(vista.getPanelContenido(), "info");
+        }
+    }
+    
+    // Mouse Adapter
+    
+    class JugarMouseListener extends MouseAdapter {
+        @Override
+        public void mouseEntered(MouseEvent e){
+            vista.setBotonJugar("/imagenes/JugarOn.png");
+        }
+        
+        @Override
+        public void mouseExited(MouseEvent e) {
+            vista.setBotonJugar("/imagenes/Jugar.png");
+        }
+    }
+    
+    class InstruccionesMouseListener extends MouseAdapter {
+        @Override
+        public void mouseEntered(MouseEvent e){
+            vista.setBotonInstru("/imagenes/ComoJugarOn.png");
+        }
+        
+        @Override
+        public void mouseExited(MouseEvent e) {
+            vista.setBotonInstru("/imagenes/ComoJugar.png");
+        }
+    }
+    
+    class InfoMouseListener extends MouseAdapter {
+        @Override
+        public void mouseEntered(MouseEvent e){
+            vista.setBotonInfo("/imagenes/ParaQueOn.png");
+        }
+        
+        @Override
+        public void mouseExited(MouseEvent e) {
+            vista.setBotonInfo("/imagenes/ParaQue.png");
         }
     }
         

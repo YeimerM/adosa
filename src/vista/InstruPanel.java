@@ -12,6 +12,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -237,6 +238,24 @@ public class InstruPanel extends JPanel{
         }
     }
     
+    public void setBotonBack(String rutaImg){
+        Image img = new ImageIcon(getClass().getResource(rutaImg)).getImage();
+        img = img.getScaledInstance(220, 90, Image.SCALE_SMOOTH);
+        jbBack.setIcon(new ImageIcon(img));
+    }
+    
+    public void setBotonExit(String rutaImg){
+        Image img = new ImageIcon(getClass().getResource(rutaImg)).getImage();
+        img = img.getScaledInstance(125, 115, Image.SCALE_SMOOTH);
+        jbExit.setIcon(new ImageIcon(img));
+    }
+    
+    public void setBotonNext(String rutaImg){
+        Image img = new ImageIcon(getClass().getResource(rutaImg)).getImage();
+        img = img.getScaledInstance(220, 90, Image.SCALE_SMOOTH);
+        jbNext.setIcon(new ImageIcon(img));
+    }
+    
     // Agregar Listeners para los botones
     public void addNextButtonListener(ActionListener listener) {
         jbNext.addActionListener(listener);
@@ -249,4 +268,18 @@ public class InstruPanel extends JPanel{
     public void addBackButtonListener(ActionListener listener) {
         jbBack.addActionListener(listener);
     }
+    
+    // Agregar Mouse Listeners para los botones
+    public void addBackButtonMouseListener(MouseAdapter listener) {
+        jbBack.addMouseListener(listener);
+    }
+    
+    public void addExitButtonMouseListener(MouseAdapter listener) {
+        jbExit.addMouseListener(listener);
+    }
+    
+    public void addNextButtonMouseListener(MouseAdapter listener) {
+        jbNext.addMouseListener(listener);
+    }
+    
 }

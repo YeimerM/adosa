@@ -11,6 +11,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -67,7 +68,17 @@ public class InfoPanel extends JPanel{
         jpContenido.setVisible(false);
     }
     
+    public void setBotonExit(String rutaImg){
+        Image img = new ImageIcon(getClass().getResource(rutaImg)).getImage();
+        img = img.getScaledInstance(125, 115, Image.SCALE_SMOOTH);
+        jbExit.setIcon(new ImageIcon(img));
+    }
+    
     public void addExitButtonListener (ActionListener listener){
         jbExit.addActionListener(listener);
+    }
+    
+    public void addExitButtonMouseListener(MouseAdapter listener) {
+        jbExit.addMouseListener(listener);
     }
 }
