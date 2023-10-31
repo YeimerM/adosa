@@ -5,8 +5,11 @@
         <group>
             <file>file:/C:/Users/mende/Documentos/adosa2/src/vista/MainView.java</file>
             <file>file:/C:/Users/mende/Documentos/adosa2/src/controlador/InstruController.java</file>
+            <file>file:/C:/Users/mende/Documentos/adosa2/src/controlador/JuegoController.java</file>
             <file>file:/C:/Users/mende/Documentos/adosa2/src/controlador/MainController.java</file>
             <file>file:/C:/Users/mende/Documentos/adosa2/src/vista/InstruPanel.java</file>
+            <file>file:/C:/Users/mende/Documentos/adosa2/src/modelo/JuegoModel.java</file>
+            <file>file:/C:/Users/mende/Documentos/adosa2/src/vista/JuegoPanel.java</file>
         </group>
     </open-files>
 </project-private>

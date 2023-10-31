@@ -41,7 +41,7 @@ public class InstruPanel extends JPanel{
     }
 
     private void initComponentes() {
-        setSize(new Dimension(1142, 764));
+        setSize(new Dimension(1260, 830));
         setVisible(true);
         paginaActual = 0;
         
@@ -59,7 +59,7 @@ public class InstruPanel extends JPanel{
                 g.drawImage(imgInstru1.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         };
-        jpInstru1.setSize(new Dimension(1260, 800));
+        jpInstru1.setSize(this.getSize());
         jpInstru1.setLayout(null);
         
         // Configurar panel instru 2
@@ -71,7 +71,7 @@ public class InstruPanel extends JPanel{
                 g.drawImage(imgInstru2.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         };
-        jpInstru2.setSize(new Dimension(1260, 800));
+        jpInstru2.setSize(this.getSize());
         jpInstru2.setLayout(null);
         
         // Configurar panel instru 3
@@ -83,7 +83,7 @@ public class InstruPanel extends JPanel{
                 g.drawImage(imgInstru3.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         };
-        jpInstru3.setSize(new Dimension(1260, 800));
+        jpInstru3.setSize(this.getSize());
         jpInstru3.setLayout(null);
         
         // Configurar panel instru 4
@@ -95,7 +95,7 @@ public class InstruPanel extends JPanel{
                 g.drawImage(imgInstru4.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         };
-        jpInstru4.setSize(new Dimension(1260, 800));
+        jpInstru4.setSize(this.getSize());
         jpInstru4.setLayout(null);
         
         

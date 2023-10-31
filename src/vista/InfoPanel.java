@@ -12,7 +12,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -30,7 +29,7 @@ public class InfoPanel extends JPanel{
     }
 
     private void initComponentes() {
-        setSize(new Dimension(1142, 764));
+        setSize(new Dimension(1260, 830));
         setVisible(true);
         
         imgInfo = new ImageIcon(getClass().getResource("/imagenes/Info.png"));

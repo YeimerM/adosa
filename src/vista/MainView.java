@@ -42,7 +42,7 @@ public class MainView extends JFrame {
 
     private void initComponentes() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(new Dimension(1260, 800));
+        setSize(new Dimension(1260, 830));
         setTitle("ADOSA 2");
         setLocationRelativeTo(null);
         setResizable(false);
@@ -65,7 +65,7 @@ public class MainView extends JFrame {
             }
         };
         
-        menuPanel.setSize(new Dimension(1260, 800));
+        menuPanel.setSize(new Dimension(1260, 830));
         menuPanel.setLayout(new BorderLayout());
         
         

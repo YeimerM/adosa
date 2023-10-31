@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
+import modelo.JuegoModel;
 import vista.InfoPanel;
 import vista.InstruPanel;
 import vista.JuegoPanel;
@@ -109,7 +110,8 @@ public class MainController {
     
     public JPanel getPanelJug(){
         JuegoPanel juegoPanel = new JuegoPanel();
-        JuegoController juegoCtrl = new JuegoController(juegoPanel);
+        JuegoModel juegoModel = new JuegoModel();
+        JuegoController juegoCtrl = new JuegoController(juegoPanel, juegoModel);
         JPanel panelView = juegoPanel.getPanel();
         return panelView;
     }
