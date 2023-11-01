@@ -7,15 +7,16 @@
 package vista;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Point;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseMotionAdapter;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -34,20 +35,23 @@ public class JuegoPanel extends JPanel {
     private JLabel jlVida1;
     private JLabel jlVida2;
     private JLabel jlVida3;
-    private JButton jbCheck;
     private JButton jbSonido;
+    private JButton jbCheck;
+    private JLabel jlPuntaje;
     private JLabel lbCuentaRegresiva;
     private ImageIcon[] countdownImgs;
     private int currentIndex = 0;
-    private ImageIcon aUnoImg;
-    private ImageIcon aDosImg;
-    private ImageIcon bUnoImg;
-    private ImageIcon bDosImg;
-    private ImageIcon cUnoImg;
-    private ImageIcon cDosImg;
-    private ImageIcon dUnoImg;
-    private ImageIcon dDosImg;
+    private ImageIcon cuadroA;
+    private ImageIcon cuadroB;
+    private ImageIcon cuadroC;
+    private ImageIcon cuadroD;
+    private ImageIcon cuadroE;
+    private ImageIcon cuadroF;
+    private ImageIcon cuadroG;
+    private ImageIcon cuadroH;
     private ImageIcon[] cuadradosIcons;
+    private ArrayList<ImageIcon> cuadrosImgs;
+    private ArrayList<JLabel> posicionesCuadro;
     private JLabel aUno;
     private JLabel aDos;
     private JLabel bUno;
@@ -56,6 +60,7 @@ public class JuegoPanel extends JPanel {
     private JLabel cDos;
     private JLabel dUno;
     private JLabel dDos;
+    private boolean cuadrossIguales;
 
     public JuegoPanel() {
         initComponentes();
@@ -121,13 +126,12 @@ public class JuegoPanel extends JPanel {
         jpConteo.add(lbCuentaRegresiva);
         
         countdownImgs = new ImageIcon[]{
-                 new ImageIcon(getClass().getResource("/imagenes/numero_3.png")),
-                 new ImageIcon(getClass().getResource("/imagenes/numero_2.png")),
-                 new ImageIcon(getClass().getResource("/imagenes/numero_1.png")),
-                 new ImageIcon(getClass().getResource("/imagenes/Ya.png"))
+                new ImageIcon(getClass().getResource("/imagenes/numero_3.png")),
+                new ImageIcon(getClass().getResource("/imagenes/numero_2.png")),
+                new ImageIcon(getClass().getResource("/imagenes/numero_1.png")),
+                new ImageIcon(getClass().getResource("/imagenes/Ya.png"))
         };
         
-        actualizarConteo();
         
         jpContenido.add(jpConteo);
         
@@ -142,145 +146,141 @@ public class JuegoPanel extends JPanel {
         
         // Boton Check
         imgCheck = new ImageIcon(getClass().getResource("/imagenes/Check.png"));
-        Image imgC = imgCheck.getImage();
-        imgC = imgC.getScaledInstance(200,200,Image.SCALE_SMOOTH); // Escalar el icono
-        imgCheck = new ImageIcon(imgC);
+        Image imgCh = imgCheck.getImage();
+        imgCh = imgCh.getScaledInstance(200,200,Image.SCALE_SMOOTH); // Escalar el icono
+        imgCheck = new ImageIcon(imgCh);
         jbCheck = new JButton(imgCheck);
         jbCheck.setBorderPainted(false);
         jbCheck.setContentAreaFilled(false);
         jbCheck.setFocusPainted(false);
         jbCheck.setBounds(920, 550, imgCheck.getIconWidth(), imgCheck.getIconHeight());
-        jbCheck.setVisible(true);
         
         jpJuego.add(jbCheck);
         
+        // Label Puntaje
+        jlPuntaje = new JLabel();
+        jlPuntaje.setFont(new Font(Font.SANS_SERIF,Font.BOLD,40));
+        jlPuntaje.setBounds(330,3,100,100);
         
-        // Configurar zonas donde van a ir los cuadrados
         
-        List<Point> posiciones = new ArrayList<>(); // Lista con las posiciones donde van los cuadrados
-        posiciones.add(new Point(5, 320));
-        posiciones.add(new Point(230, 320));
-        posiciones.add(new Point(535, 10));
-        posiciones.add(new Point(535, 200));
-        posiciones.add(new Point(790, 320));
-        posiciones.add(new Point(980, 320));
-        posiciones.add(new Point(535, 435));
-        posiciones.add(new Point(535, 615));
+        mostrarConteo();
         
+        jpJuego.add(jlPuntaje);
+        
+        // imagenes de los cuadros
+        
+        // Cuadrado uno
+        cuadroA = new ImageIcon(getClass().getResource("/imagenes/Blocks/Block_1.png")); 
+        Image imgA = cuadroA.getImage();
+        imgA = imgA.getScaledInstance(190, 190, Image.SCALE_SMOOTH);
+        cuadroA = new ImageIcon(imgA);
+        
+        // Cuadrado dos
+        cuadroB = new ImageIcon(getClass().getResource("/imagenes/Blocks/Block_2.png"));
+        Image imgB = cuadroB.getImage();
+        imgB = imgB.getScaledInstance(190, 190, Image.SCALE_SMOOTH);
+        cuadroB = new ImageIcon(imgB);
+        
+        // Cuadrado tres
+        cuadroC = new ImageIcon(getClass().getResource("/imagenes/Blocks/Block_3.png"));
+        Image imgC = cuadroC.getImage();
+        imgC = imgC.getScaledInstance(190, 190, Image.SCALE_SMOOTH);
+        cuadroC = new ImageIcon(imgC);
+        
+        // Cuadrado Cuatro
+        cuadroD = new ImageIcon(getClass().getResource("/imagenes/Blocks/Block_4.png"));
+        Image imgD = cuadroD.getImage();
+        imgD = imgD.getScaledInstance(190, 190, Image.SCALE_SMOOTH);
+        cuadroD = new ImageIcon(imgD);
+        
+        // Cuadrado Cinco
+        cuadroE = new ImageIcon(getClass().getResource("/imagenes/Blocks/Block_5.png"));
+        Image imgE = cuadroE.getImage();
+        imgE = imgE.getScaledInstance(190, 190, Image.SCALE_SMOOTH);
+        cuadroE = new ImageIcon(imgE);
+        
+        // Cuadrado Seis
+        cuadroF = new ImageIcon(getClass().getResource("/imagenes/Blocks/Block_6.png"));
+        Image imgF = cuadroF.getImage();
+        imgF = imgF.getScaledInstance(190, 190, Image.SCALE_SMOOTH);
+        cuadroF = new ImageIcon(imgF);
+        
+        // Cuadrado Siete
+        cuadroG = new ImageIcon(getClass().getResource("/imagenes/Blocks/Block_7.png"));
+        Image imgG = cuadroG.getImage();
+        imgG = imgG.getScaledInstance(190, 190, Image.SCALE_SMOOTH);
+        cuadroG = new ImageIcon(imgG);
+        
+        // Cuadrado Ocho
+        cuadroH = new ImageIcon(getClass().getResource("/imagenes/Blocks/Block_8.png"));
+        Image imgH = cuadroH.getImage();
+        imgH = imgH.getScaledInstance(190, 190, Image.SCALE_SMOOTH);
+        cuadroH = new ImageIcon(imgH);
+        
+        // Lista cuadros
+        
+        cuadrosImgs = new ArrayList<>();
+        cuadrosImgs.add(cuadroA);
+        cuadrosImgs.add(cuadroB);
+        cuadrosImgs.add(cuadroC);
+        cuadrosImgs.add(cuadroD);
+        cuadrosImgs.add(cuadroE);
+        cuadrosImgs.add(cuadroF);
+        cuadrosImgs.add(cuadroG);
+        cuadrosImgs.add(cuadroH);
 
+        // Posiciones de los Cuadrados
+        
         // A1
-        aUno = new JLabel("pox a1");
-        
-        aUnoImg = new ImageIcon(getClass().getResource("/imagenes/Blocks/Block_1.png"));
-        Image imgAU = aUnoImg.getImage();
-        imgAU = imgAU.getScaledInstance(190, 190, Image.SCALE_SMOOTH);
-        aUnoImg = new ImageIcon(imgAU);
-        
-        //aUno.setIcon(aUnoImg);
-        aUno.setBounds(5, 320, aUnoImg.getIconWidth(), aUnoImg.getIconHeight());
-        
-        jpJuego.add(aUno);
+        aUno = new JLabel();
+        aUno.setBounds(5, 320, 190, 190);
         
         // A2
-        aDos = new JLabel("pox a2");
-        
-        aDosImg = new ImageIcon(getClass().getResource("/imagenes/Blocks/Block_2.png"));
-        Image imgAD = aDosImg.getImage();
-        imgAD = imgAD.getScaledInstance(190, 190, Image.SCALE_SMOOTH);
-        aDosImg = new ImageIcon(imgAD);
-        
-        //aDos.setIcon(aDosImg);
-        aDos.setBounds(230, 320, aDosImg.getIconWidth(), aDosImg.getIconHeight());
-        
-        jpJuego.add(aDos);
+        aDos = new JLabel();
+        aDos.setBounds(230, 320, 190, 190);
         
         // B1
-        bUno = new JLabel("pox b1");
-        
-        bUnoImg = new ImageIcon(getClass().getResource("/imagenes/Blocks/Block_2.png"));
-        Image imgBU = bUnoImg.getImage();
-        imgBU = imgBU.getScaledInstance(185, 185, Image.SCALE_SMOOTH);
-        bUnoImg = new ImageIcon(imgBU);
-        
-        //bUno.setIcon(bUnoImg);
-        bUno.setBounds(535, 10, bUnoImg.getIconWidth(),bUnoImg.getIconHeight());
-        
-        jpJuego.add(bUno);
-        
+        bUno = new JLabel();
+        bUno.setBounds(535, 10, 185,185);
         
         // B2
-        bDos = new JLabel("pox b2");
-        
-        bDosImg = new ImageIcon(getClass().getResource("/imagenes/Blocks/Block_4.png"));
-        Image imgBD = bDosImg.getImage();
-        imgBD = imgBD.getScaledInstance(185, 185, Image.SCALE_SMOOTH);
-        bDosImg = new ImageIcon(imgBD);
-        
-//        bDos.setIcon(bDosImg);
-        bDos.setBounds(535, 200, bDosImg.getIconWidth(), bDosImg.getIconHeight());
-        
-        jpJuego.add(bDos);
+        bDos = new JLabel();
+        bDos.setBounds(535, 200, 185, 185);
         
         // C1
-        cUno = new JLabel("pox c1");
-        
-        cUnoImg = new ImageIcon(getClass().getResource("/imagenes/Blocks/Block_1.png"));
-        Image imgCU = cUnoImg.getImage();
-        imgCU = imgCU.getScaledInstance(190, 190, Image.SCALE_SMOOTH);
-        cUnoImg = new ImageIcon(imgCU);
-        
-//        cUno.setIcon(cUnoImg);
-        cUno.setBounds(980, 320, cUnoImg.getIconWidth(), cUnoImg.getIconHeight());
-        
-        jpJuego.add(cUno);
+        cUno = new JLabel();
+        cUno.setBounds(980, 320, 190, 190);
         
         // C2
-        cDos = new JLabel("pox c2");
-        
-        cDosImg = new ImageIcon(getClass().getResource("/imagenes/Blocks/Block_2.png"));
-        Image imgCD = cDosImg.getImage();
-        imgCD = imgCD.getScaledInstance(190, 190, Image.SCALE_SMOOTH);
-        cDosImg = new ImageIcon(imgCD);
-        
-//        cDos.setIcon(cDosImg);
-        cDos.setBounds(790, 320, cDosImg.getIconWidth(), cDosImg.getIconHeight());
-        
-        jpJuego.add(cDos);
+        cDos = new JLabel();
+        cDos.setBounds(790, 320, 190, 190);
         
         // D1
-        dUno = new JLabel("pox d1");
-        
-        dUnoImg = new ImageIcon(getClass().getResource("/imagenes/Blocks/Block_3.png"));
-        Image imgDU = dUnoImg.getImage();
-        imgDU = imgDU.getScaledInstance(185, 185, Image.SCALE_SMOOTH);
-        dUnoImg = new ImageIcon(imgDU);
-        
-//        dUno.setIcon(dUnoImg);
-        dUno.setBounds(535, 615, dUnoImg.getIconWidth(),dUnoImg.getIconHeight());
-        
-        jpJuego.add(dUno);
+        dUno = new JLabel();
+        dUno.setBounds(535, 615, 185,185);
         
         // D2
-        dDos = new JLabel("pox d2");
+        dDos = new JLabel();
+        dDos.setBounds(535, 435, 185, 185);
         
-        dDosImg = new ImageIcon(getClass().getResource("/imagenes/Blocks/Block_4.png"));
-        Image imgDD = dDosImg.getImage();
-        imgDD = imgDD.getScaledInstance(185, 185, Image.SCALE_SMOOTH);
-        dDosImg = new ImageIcon(imgDD);
-        
-//        dDos.setIcon(dDosImg);
-        dDos.setBounds(535, 435, dDosImg.getIconWidth(), dDosImg.getIconHeight());
-        
-        jpJuego.add(dDos);
-        
+        // Lista de las posiciones
+        posicionesCuadro = new ArrayList<>();
+        posicionesCuadro.add(aUno);
+        posicionesCuadro.add(aDos);
+        posicionesCuadro.add(bUno);
+        posicionesCuadro.add(bDos);
+        posicionesCuadro.add(cUno);
+        posicionesCuadro.add(cDos);
+        posicionesCuadro.add(dUno);
+        posicionesCuadro.add(dDos);
+
         
         jpContenido.add(jpJuego);
-        
         
         add(jpContenido);
     }
     
-    public void actualizarConteo(){
+    public void mostrarConteo(){
         
         Timer timer = new Timer();
         
@@ -302,31 +302,77 @@ public class JuegoPanel extends JPanel {
         timer.scheduleAtFixedRate(tarea, 0,1000);
     }
     
-    public JLabel getLbAU(String posicion){
-        return aUno;
-    }
-    public JLabel getLbAD(String posicion){
-        return aDos;
-    }
-    public JLabel getLbBU(String posicion){
-        return bUno;
-    }
-    public JLabel getLbBD(String posicion){
-        return bDos;
-    }
-    public JLabel getLbCU(String posicion){
-        return cUno;
-    }
-    public JLabel getLbCD(String posicion){
-        return cDos;
-    }
-    public JLabel getLbDU(String posicion){
-        return dUno;
-    }
-    public JLabel getLbDD(String posicion){
-        return dDos;
+   
+    
+    
+    // Aqui usaremos la lista de cuadros para elejir el numero de cuadros a mostrar que seran 3 al inicio e ira aumentando con el nivel
+    // Usaremos también una lista con las posiciones y esta se elijira al azar con el mismo parametro que elejir las 3 figuras
+    // Cada vez que elijamos una cuadro a mostrar y una posicion esta se borrará para no repetirse
+    public void mostrarCuadros(int nCuadros){
+        
+        Random rand = new Random();
+        
+        // Clonamos la lista de cuadrosImgs y posicionesCuadro para no modificar las originales
+        ArrayList<ImageIcon> cuadrosDisponibles = new ArrayList<>(cuadrosImgs);
+        ArrayList<JLabel> posicionesDisponibles = new ArrayList<>(posicionesCuadro);
+        
+        // Listas para almacenar los cuadros y las posiciones elegidas
+        ArrayList<ImageIcon> cuadrosElegidos = new ArrayList<>();
+        ArrayList<JLabel> posicionesElegidas = new ArrayList<>();
+        
+        for(int i = 0 ; i < nCuadros ; i++ ){
+            // Elegir un índice aleatorio para cuadrosDisponibles
+            int indiceCuadro = rand.nextInt(cuadrosDisponibles.size());
+            int indicePosicion = rand.nextInt(posicionesDisponibles.size());
+            
+            // Agregar el cuadro y la posición elegidos a las listas correspondientes
+            cuadrosElegidos.add(cuadrosDisponibles.get(indiceCuadro));
+            posicionesElegidas.add(posicionesDisponibles.get(indicePosicion));
+            
+            // Agregamos cada cuadro al panel
+            posicionesDisponibles.get(indicePosicion).setIcon(cuadrosDisponibles.get(indiceCuadro));
+            jpJuego.add(posicionesDisponibles.get(indicePosicion));
+            
+            // Eliminar el cuadro y la posición elegidos de cuadrosDisponibles y posicionesDisponibles
+            cuadrosDisponibles.remove(indiceCuadro);
+            posicionesDisponibles.remove(indicePosicion);
+        }
+        
+        // Talves necesite empezar a cambiar las figuras desde aqui mismo y verificar las figuras en pantalla desde aqui tambien
+        // Hacer un while y crear un valos boolean que diga si hay dos figuras iguales en pantalla
+        // Mientras este sea falso se da el while
+        
+        ArrayList<ImageIcon> cuadrosCambio = new ArrayList<>(cuadrosImgs);
+            Timer time = new Timer();
+            TimerTask tar = new TimerTask(){
+                @Override
+                public void run() {
+                    if(((String.valueOf(posicionesElegidas.get(nCuadros-1).getIcon()) == null ? String.valueOf(posicionesElegidas.get(nCuadros-2).getIcon()) == null : String.valueOf(posicionesElegidas.get(nCuadros-1).getIcon()).equals(String.valueOf(posicionesElegidas.get(nCuadros-2).getIcon())))
+                                || (String.valueOf(posicionesElegidas.get(nCuadros-1).getIcon()) == null ? String.valueOf(posicionesElegidas.get(nCuadros-3).getIcon()) == null : String.valueOf(posicionesElegidas.get(nCuadros-1).getIcon()).equals(String.valueOf(posicionesElegidas.get(nCuadros-3).getIcon()))) 
+                                ||(String.valueOf(posicionesElegidas.get(nCuadros-2).getIcon()) == null ? String.valueOf(posicionesElegidas.get(nCuadros-3).getIcon()) == null : String.valueOf(posicionesElegidas.get(nCuadros-2).getIcon()).equals(String.valueOf(posicionesElegidas.get(nCuadros-3).getIcon()))))){
+                        cancel();
+                        cuadrossIguales = true;
+                    } else{
+                        // Esto elige un cuadro al azar y luego lo pone en una posicion al azar de las posiciones que tiene en este momento
+                        int indCuadroCambiar = rand.nextInt(posicionesElegidas.size());
+                        ImageIcon imgElegida = cuadrosCambio.get(rand.nextInt(cuadrosCambio.size()));
+                        posicionesElegidas.get(indCuadroCambiar).setIcon(imgElegida); // Elige la posicion y poner set Icon
+                        cuadrossIguales = false;
+                    }
+                }
+                
+
+            };
+            time.scheduleAtFixedRate(tar, 0,1500);
     }
     
+    public boolean getCuadrosIguales(){
+        return cuadrossIguales;
+    }
+    
+    public void verificarCuadro(){
+        
+    }
 
     public JPanel getPanel() {
         return jpContenido;
@@ -339,8 +385,22 @@ public class JuegoPanel extends JPanel {
     public JPanel getJpConteo(){
         return jpConteo;
     }
+
+    public JLabel getJlPuntaje() {
+        return jlPuntaje;
+    }
+    
+    // Listener
     
     public void addPanelMouseMotionListener(MouseMotionAdapter listener){
         jpContenido.addMouseMotionListener(listener);
+    }
+    
+    public void addPanelJuegoListener(ComponentAdapter listener){
+        jpJuego.addComponentListener(listener);
+    }
+    
+    public void addCheckListener(MouseAdapter listener){
+        jbCheck.addMouseListener(listener);
     }
 }

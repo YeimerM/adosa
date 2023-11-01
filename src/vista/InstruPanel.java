@@ -160,7 +160,6 @@ public class InstruPanel extends JPanel{
     }
     
     public void volverManu(){
-        System.out.println("volviendo al menu...");
         paginaActual = 0;
         jpInstru1.add(jbExit);
         jpInstru1.add(jbNext);

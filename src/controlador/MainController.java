@@ -39,7 +39,6 @@ public class MainController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Jugar");
             vista.getPanelContenido().add(getPanelJug(),"jugar");
             vista.getCdLayout().show(vista.getPanelContenido(), "jugar");
         }
@@ -48,7 +47,6 @@ public class MainController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Como Jugar");
             vista.getPanelContenido().add(getPanelIns(),"instrucciones");
             vista.getCdLayout().show(vista.getPanelContenido(), "instrucciones");
         }
@@ -57,7 +55,6 @@ public class MainController {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println("Para Que Sirve");
             vista.getPanelContenido().add(getPanelInf(),"info");
             vista.getCdLayout().show(vista.getPanelContenido(), "info");
         }

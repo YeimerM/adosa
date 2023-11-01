@@ -1,2 +1,3 @@
 # Ignorar archivos de texto
 *.txt
+/dist/

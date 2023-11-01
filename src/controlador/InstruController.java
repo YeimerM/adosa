@@ -33,7 +33,6 @@ public class InstruController {
         @Override
         public void actionPerformed(ActionEvent e) {
             vista.avanzarPag();
-            System.out.println("Next");
         }
     }
 
@@ -42,7 +41,6 @@ public class InstruController {
         @Override
         public void actionPerformed(ActionEvent e) {
             vista.retrocederPag();
-            System.out.println("Back");
         }
     }
     
@@ -51,14 +49,12 @@ public class InstruController {
         @Override
         public void actionPerformed(ActionEvent e) {
             vista.volverManu();
-            System.out.println("Exit");
         }
     }
     
     class BackMouseListener extends MouseAdapter {
         @Override
         public void mousePressed(MouseEvent e){
-            System.out.println(e);
             vista.setBotonBack("/imagenes/AnteriorOn.png");
         }
         
@@ -71,7 +67,6 @@ public class InstruController {
     class ExitMouseListener extends MouseAdapter {
         @Override
         public void mousePressed(MouseEvent e){
-            System.out.println(e);
             vista.setBotonExit("/imagenes/XOn.png");
         }
         
@@ -84,7 +79,6 @@ public class InstruController {
     class NextMouseListener extends MouseAdapter {
         @Override
         public void mousePressed(MouseEvent e){
-            System.out.println(e);
             vista.setBotonNext("/imagenes/SiguienteOn.png");
         }
         

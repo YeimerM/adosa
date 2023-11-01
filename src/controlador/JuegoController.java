@@ -7,6 +7,9 @@
 
 package controlador;
 
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import modelo.JuegoModel;
@@ -19,15 +22,29 @@ public class JuegoController {
     public JuegoController(JuegoPanel vista, JuegoModel modelo){
         this.vista = vista;
         this.modelo = modelo;
+        vista.mostrarCuadros(modelo.getCuadradosAMostrar());
+        vista.addPanelJuegoListener(new PanelJuegoListener());
+        vista.getJlPuntaje().setText(String.valueOf(modelo.getPuntaje()));
         
-        //vista.addPanelMouseMotionListener(new PanelMouseMotionListener());
+        vista.addCheckListener(new botonCheckListener());
     }
-
-    private class PanelMouseMotionListener extends MouseMotionAdapter {
+    
+    public class botonCheckListener extends MouseAdapter{
         
         @Override
-        public void mouseMoved(MouseEvent e){
-            System.out.println("X: " + e.getX() + " Y: " + e.getY());
+        public void mouseClicked(MouseEvent e){
+            if (vista.getCuadrosIguales()){
+                modelo.aumNivel();
+                modelo.aumPuntaje();
+                vista.mostrarCuadros(modelo.getCuadradosAMostrar());
+            }
+        }
+    }
+    
+    private class PanelJuegoListener extends ComponentAdapter{
+        @Override
+        public void componentShown(ComponentEvent e) {
+            
         }
     }
 }
